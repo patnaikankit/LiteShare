@@ -83,6 +83,26 @@ io.on('connection', (socket) => {
 
 
     // To terminate the connection or due to some issue it gets terminated
+    socket.on('disconnect', () => {
+        console.log(`Socket disconnected: ${socket.id}`);
+        // to remove the disconnected socket id from the map
+        const user = socket.id
+        const uniqueID = userToUniqueID.get(user)
+
+        userToUniqueID.delete(user)
+        uniqueIDtoUser.delete(uniqueID)
+
+        // Log the updated map
+        console.log("Updated userToUniqueID");
+        for(let [key, value] of userToUniqueID){
+            console.log(key + " = " + value);
+        }
+
+        console.log("Updated uniqueIDtoUser");
+        for(let [key, value] of uniqueIDtoUser){
+            console.log(key + " = " + value);
+        }
+    })
 })
 
 
