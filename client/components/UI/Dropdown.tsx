@@ -5,7 +5,7 @@ import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu"
 import { Check, ChevronRight, Circle } from "lucide-react"
 import { cn } from "@/lib/utils"
 
-const DropdownMenu = DropdownMenuPrimitive.Root, DropdownMenuTrigger = DropdownMenuPrimitive.Trigger, DropdownMenugroup = DropdownMenuPrimitive.Group, DropdownMenuPortal = DropdownMenuPrimitive.Portal, DropdownMenuSub = DropdownMenuPrimitive.Sub, DropdownMenuRadioGroup = DropdownMenuPrimitive.RadioGroup
+const DropdownMenu = DropdownMenuPrimitive.Root, DropdownMenuTrigger = DropdownMenuPrimitive.Trigger, DropdownMenuGroup = DropdownMenuPrimitive.Group, DropdownMenuPortal = DropdownMenuPrimitive.Portal, DropdownMenuSub = DropdownMenuPrimitive.Sub, DropdownMenuRadioGroup = DropdownMenuPrimitive.RadioGroup
 
 
 const DropdownMenuSubTrigger = React.forwardRef<React.ElementRef<typeof DropdownMenuPrimitive.SubTrigger>, React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubTrigger> &{
@@ -135,3 +135,71 @@ const DropdownMenuRadioItem = React.forwardRef<
 
 DropdownMenuRadioItem.displayName = DropdownMenuPrimitive.RadioItem.displayName
 
+
+const DropdownMenuLabel = React.forwardRef<
+  React.ElementRef<typeof DropdownMenuPrimitive.Label>,
+  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Label> & {
+    inset?: boolean
+  }
+>(({ className, inset, ...props }, ref) => (
+  <DropdownMenuPrimitive.Label
+    ref={ref}
+    className={cn(
+      "px-2 py-1.5 text-sm font-semibold",
+      inset && "pl-8",
+      className
+    )}
+    {...props}
+  />
+))
+DropdownMenuLabel.displayName = DropdownMenuPrimitive.Label.displayName
+
+
+const DropdownMenuSeparator = React.forwardRef<
+  React.ElementRef<typeof DropdownMenuPrimitive.RadioItem>,
+  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.RadioItem>
+>(({ className, ...props }, ref) => (
+  <DropdownMenuPrimitive.RadioItem
+    ref={ref}
+    className={cn(
+      "-mx-1 my-1 h-px bg-muted",
+      className
+    )}
+    {...props}
+  />
+))
+
+
+DropdownMenuSeparator.displayName = DropdownMenuPrimitive.Separator.displayName
+
+
+const DropdownMenuShortcut = ({
+    className,
+    ...props
+  }: React.HTMLAttributes<HTMLSpanElement>) => {
+    return (
+      <span
+        className={cn("ml-auto text-xs tracking-widest opacity-60", className)}
+        {...props}
+      />
+    )
+  }
+  DropdownMenuShortcut.displayName = "DropdownMenuShortcut"
+  
+  export {
+    DropdownMenu,
+    DropdownMenuTrigger,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuCheckboxItem,
+    DropdownMenuRadioItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuShortcut,
+    DropdownMenuGroup,
+    DropdownMenuPortal,
+    DropdownMenuSub,
+    DropdownMenuSubContent,
+    DropdownMenuSubTrigger,
+    DropdownMenuRadioGroup,
+  }
