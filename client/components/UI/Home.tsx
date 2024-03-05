@@ -8,8 +8,7 @@ const Home = () => {
     return (
         <div className="flex flex-col mt-[30vh] justify-center items-center">
             <h1 className="sm:text-3xl text-xl sm:w-[410px] text-center font-extrabold tracking-wide">
-            Share Files Seamlessly 🌐, Connect P2P 🤝, and Chat Instantly 💬 with
-            LiteShare!
+            Unlock Swift File Sharing via LiteShare! 🚀 Connect P2P 🤝 and 💬 Chat Instantly!
             </h1>
             <InfoTip />
             <Link href="/transfer">
