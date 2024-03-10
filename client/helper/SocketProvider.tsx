@@ -15,7 +15,7 @@ import { Socket } from "socket.io-client/debug"
 const SocketContext = createContext<any>({});
 
 export const useSocket = () => {
-    const socket: { socket: Socket; userId: any, socketID: any, setSocketId: any, peerState: any, setPeerState: any } = useContext(SocketContext);
+    const socket: { socket: Socket; userID: any, socketID: any, setSocketId: any, peerState: any, setPeerState: any } = useContext(SocketContext);
     return socket;
 }
 
