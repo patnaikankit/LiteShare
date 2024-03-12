@@ -90,7 +90,7 @@ export const Chat = () => {
                                         setNewMessage(event.target.value)
                                     }}
                                     ref={inputRef}
-                                    placeholder={`Sender Message to ${Socket.userId}`}
+                                    placeholder={`Sender Message to ${Socket.userID}`}
                                 />
                             </div>
                             <div>
