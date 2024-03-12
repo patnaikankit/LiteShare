@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef, useState, useCallback } from "react"
 import { 
     Card,
     CardContent,
@@ -64,13 +64,10 @@ const ShareCard = () => {
     // Functions
 
     // to add user details to the socket database when a connecton is established
-    const addUserToSocketDB = () => {
+    const addUserToSocketDB = useCallback(() => {
         if (userDetails && userDetails.socket && userDetails.userID) {
             userDetails.socket.on("connect", () => {
-                // If you are using React state to manage userID, set it using the appropriate hook
                 setUserID(userDetails.userID);
-    
-                console.log(userDetails.userID);
     
                 userDetails.socket.emit("details", {
                     socketId: userDetails.socket.id,
@@ -80,7 +77,7 @@ const ShareCard = () => {
         } else {
             console.error("Invalid userDetails object or missing properties.");
         }
-    };
+    }, [userDetails]);
     
 
     // genearating a toast if the user was successfully able to copy the unique url
@@ -143,7 +140,7 @@ const ShareCard = () => {
             new URL("../lib/worker.ts", import.meta.url)
         )
 
-        addUserToSocketDB();
+        // addUserToSocketDB();
 
         // from the unqiue generated url extracting the the peerID 
         if(searchParams.get("code")) {
@@ -185,7 +182,7 @@ const ShareCard = () => {
             // web worker terminated
             workerRef.current?.terminate();
         }
-    }, [addUserToSocketDB, searchParams, userDetails.socket]);
+    }, [searchParams, userDetails.socket]);
 
     // creating a new peer instance
     const callUser = () => {
@@ -515,7 +512,7 @@ const ShareCard = () => {
                                 className="bg-green-500 text-white hover:bg-green-400"
                                 onClick={acceptUser}
                             >
-                                Click here to receive call from {signallingData.from}&apos;s
+                                Click here to receive call from {signallingData.from}
                             </Button>
                             </div>
                         </CardFooter>
