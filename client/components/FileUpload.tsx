@@ -11,7 +11,7 @@ type fileUploadProps = {
     handleClick: any
 }
 
-export const FileUpload = ({
+const FileUpload = ({
     fileName,
     fileProgress,
     showProgress,
@@ -48,3 +48,5 @@ export const FileUpload = ({
         </div>
     )
 }
+
+export default FileUpload;

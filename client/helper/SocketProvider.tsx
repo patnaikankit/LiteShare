@@ -1,5 +1,5 @@
 // creating a socket context provider to manage socket data across different components
-"use client"
+"use client";
 
 import { nanoid } from "nanoid"
 import React, {
@@ -24,12 +24,14 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
     // to ensure that the socket connection is made only once 
     const socket = useMemo(() => {
         return io(String(process.env.SERVER_URL));
+        console.log(process.env.SERVER_URL);
+        
     }, []);
 
     // to check the status of the peer's connection
     const [peerState, setPeerState] = useState<any>()
     // to hold the value of the peer's socketID corrsponding to its uniqueID
-    const [socketID, setSocktID] = useState<any>(socket)
+    const [socketID, setSocketID] = useState<any>(socket)
     const userID = useMemo(() => {
         // returns unique 10 character ID
         return nanoid(10);
@@ -37,7 +39,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
 
     return(
         <SocketContext.Provider value = {{ socket, userID
-        , socketID, setSocktID, peerState, setPeerState }}>
+        , socketID, setSocketID, peerState, setPeerState }}>
             { children }
         </SocketContext.Provider>
     ) 

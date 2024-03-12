@@ -14,6 +14,10 @@ app.use(
     })
 );
 
+app.get("/", (req, res) => {
+    res.send("Server Responding!")
+})
+
 const httpServer = http.createServer(app);
 
 const io = new Server(httpServer, {

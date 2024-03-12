@@ -64,3 +64,5 @@ const FileDownload = ({
         </>
     )
 }
+
+export default FileDownload

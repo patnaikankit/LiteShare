@@ -9,7 +9,7 @@ type fileUploadBtn = {
     uploadBtn: any
 }
 
-export const FileUpoadBtn = ({
+const FileUploadBtn = ({
     inputRef,
     handleFile,
     uploadBtn
@@ -35,3 +35,5 @@ export const FileUpoadBtn = ({
         </>
     );
 }
+
+export default FileUploadBtn;
