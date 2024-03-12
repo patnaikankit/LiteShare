@@ -11,7 +11,6 @@ import React, {
 import { io } from "socket.io-client"
 import { Socket } from "socket.io-client/debug"
 
-
 const SocketContext = createContext<any>({});
 
 export const useSocket = () => {
@@ -23,8 +22,7 @@ export const useSocket = () => {
 export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
     // to ensure that the socket connection is made only once 
     const socket = useMemo(() => {
-        return io(String(process.env.SERVER_URL));
-        console.log(process.env.SERVER_URL);
+        return io(String(process.env.NEXT_PUBLIC_SOCKET_SERVER_URL));
         
     }, []);
 
@@ -35,6 +33,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
     const userID = useMemo(() => {
         // returns unique 10 character ID
         return nanoid(10);
+        
     }, []);
 
     return(

@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "check-env": "echo $env:SERVER_URL"
   },
   "author": "Ankit Patnaik",
   "repository": "https://github.com/patnaikankit/LiteShare",
@@ -21,6 +22,7 @@
     "class-variance-authority": "^0.7.0",
     "classnames": "^2.3.2",
     "clsx": "^2.0.0",
+    "dotenv": "^16.4.5",
     "file-saver": "^2.0.5",
     "lodash.throttle": "^4.1.1",
     "lucide-react": "^0.299.0",
