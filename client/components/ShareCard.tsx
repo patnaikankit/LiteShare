@@ -185,7 +185,7 @@ const ShareCard = () => {
             // web worker terminated
             workerRef.current?.terminate();
         }
-    }, []);
+    }, [addUserToSocketDB, searchParams, userDetails.socket]);
 
     // creating a new peer instance
     const callUser = () => {
@@ -510,13 +510,13 @@ const ShareCard = () => {
                     {acceptCaller ? (
                         <CardFooter>
                             <div>
-                                <Button
-                                    variant="outline"
-                                    className="bg-green-500 text-white hover:bg-green-400"
-                                    onClick={acceptUser}
-                                >
-                                    Click here to receive call from {signallingData.from}
-                                </Button>
+                            <Button
+                                variant="outline"
+                                className="bg-green-500 text-white hover:bg-green-400"
+                                onClick={acceptUser}
+                            >
+                                Click here to receive call from {signallingData.from}&apos;s
+                            </Button>
                             </div>
                         </CardFooter>
                     ) : null}
