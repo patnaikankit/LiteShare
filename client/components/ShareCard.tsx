@@ -410,7 +410,7 @@ const ShareCard = () => {
                             </div>
 
                             <div className="flex flex-col gap-y-1">
-                                <Label htmlFor="name">Peer's ID</Label>
+                                <Label htmlFor="name">Peer`s ID</Label>
                             
                             <div className="flex flex-row justify-left items-center space-x-2">
                                 <Input 
