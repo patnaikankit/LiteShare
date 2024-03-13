@@ -4,15 +4,31 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import Navbar from '@/components/Navbar';
+import { keywords } from '@/lib/key';
 
 const inter = Inter({ subsets: ['latin'] });
 
-interface RootLayoutProps {
-  metaData: Metadata;
-  children: React.ReactNode; // Ensure that the children prop is correctly defined here
-}
+export const metadata: Metadata = {
+  title: "LiteShare",
+  description:
+    "LiteShare: Swift P2P file sharing and real-time chat. Experience seamless, secure data exchange with our WebRTC-powered Next.js app.",
+  authors: [
+    {
+      name: "Ankit",
+      url: "https://github.com/patnaikankit",
+    },
+  ],
+  keywords: keywords,
+  icons: {
+    icon: "",
+  },
+};
 
-const RootLayout: React.FC<RootLayoutProps> = ({ metaData, children }) => {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -29,5 +45,3 @@ const RootLayout: React.FC<RootLayoutProps> = ({ metaData, children }) => {
     </html>
   );
 }
-
-export { RootLayout };
