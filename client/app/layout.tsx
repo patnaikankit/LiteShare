@@ -1,5 +1,3 @@
-// app/layout.tsx
-
 import React from 'react';
 import { Metadata } from 'next';
 import { Inter } from 'next/font/google';
@@ -24,13 +22,12 @@ export const metaData: Metadata = {
   // }
 };
 
-export default function RootLayout({
-  children,
-  metaData, 
-}: {
+interface RootLayoutProps {
+  metaData: Metadata;
   children: React.ReactNode;
-  metaData: Metadata; // Define metaData type here
-}) {
+}
+
+const RootLayout: React.FC<RootLayoutProps> = ({ children, metaData }) => {
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -46,4 +43,6 @@ export default function RootLayout({
       </body>
     </html>
   );
-}
+};
+
+export default RootLayout;
