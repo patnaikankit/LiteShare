@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useRef, useState, useCallback } from "react"
+import React, { useEffect, useRef, useState, useCallback, Suspense } from "react"
 import { 
     Card,
     CardContent,
@@ -380,145 +380,147 @@ const ShareCard = () => {
     }
 
     return (
-        <>
-            <Card className="sm:max w-[450px] max-w-[95%]">
-                <CardContent className="mt-8">
-                    <form>
-                        <div className="grid w-full items-center gap-4">
-                            <div className="flex flex-col gap-y-1">
-                                <Label htmlFor="name">My ID</Label>
-                                <div className="flex flex-row justify-left items-center space-x-2">
-                                    <div className="flex border rounded-md px-3 py-2 text-sm h-10 w-full bg-muted">
-                                        {userID ? userID : "Loading...."}
-                                    </div>
+        <Suspense fallback={<div>Loading...</div>}>
+            <>
+                <Card className="sm:max w-[450px] max-w-[95%]">
+                    <CardContent className="mt-8">
+                        <form>
+                            <div className="grid w-full items-center gap-4">
+                                <div className="flex flex-col gap-y-1">
+                                    <Label htmlFor="name">My ID</Label>
+                                    <div className="flex flex-row justify-left items-center space-x-2">
+                                        <div className="flex border rounded-md px-3 py-2 text-sm h-10 w-full bg-muted">
+                                            {userID ? userID : "Loading...."}
+                                        </div>
 
-                                    <Button
+                                        <Button
+                                            variant="outline"
+                                            type="button"
+                                            className="p-4"
+                                            onClick={() => CopyToClipboard(userDetails?.userID)}
+                                            disabled={userID ? false : true}
+                                        >
+                                            {isCopied ? (
+                                                <Check size={15} color="green" />
+                                            ) : (
+                                                <CopyIcon size={15} />
+                                            )}
+                                        </Button>
+                                        <ShareLink usercode={userID} />
+                                    </div>
+                                </div>
+
+                                <div className="flex flex-col gap-y-1">
+                                    <Label htmlFor="name">Peer`s ID</Label>
+                                
+                                <div className="flex flex-row justify-left items-center space-x-2">
+                                    <Input 
+                                        id="name"
+                                        placeholder="ID"
+                                        onChange={(e) => setPeerID(e.target.value)}
+                                        disabled={terminateCall}
+                                        value={peerID}
+                                    />
+                                    
+                                    <Button 
                                         variant="outline"
                                         type="button"
-                                        className="p-4"
-                                        onClick={() => CopyToClipboard(userDetails?.userID)}
-                                        disabled={userID ? false : true}
+                                        className="flex items-center justify-center p-4 w-[160px]"
+                                        onClick={handleConnectionInitialization}
+                                        disabled={terminateCall}
                                     >
-                                        {isCopied ? (
-                                            <Check size={15} color="green" />
-                                        ) : (
-                                            <CopyIcon size={15} />
+                                        {isLoading ? 
+                                        <>
+                                            <div className="scale-0 hidden dark:flex dark:scale-100">
+                                                <TailSpin color="white" height={18} width={18}/>
+                                            </div>
+                                            <div className="scale-100 flex dark:scale-0 dark:hidden">
+                                                <TailSpin color="black" height={18} width={18}/>
+                                            </div>
+                                        </> : (
+                                            <p>Connect</p>
                                         )}
                                     </Button>
-                                    <ShareLink usercode={userID} />
                                 </div>
                             </div>
 
-                            <div className="flex flex-col gap-y-1">
-                                <Label htmlFor="name">Peer`s ID</Label>
-                            
-                            <div className="flex flex-row justify-left items-center space-x-2">
-                                <Input 
-                                    id="name"
-                                    placeholder="ID"
-                                    onChange={(e) => setPeerID(e.target.value)}
-                                    disabled={terminateCall}
-                                    value={peerID}
-                                />
-                                
-                                <Button 
-                                    variant="outline"
-                                    type="button"
-                                    className="flex items-center justify-center p-4 w-[160px]"
-                                    onClick={handleConnectionInitialization}
-                                    disabled={terminateCall}
-                                >
-                                    {isLoading ? 
+                            <div className="flex flex-col gap-y-3">
+                                <Label htmlFor="name">Connection Status</Label>
+                                <div className="flex flex-row justify-left items-center space-x-2">
+                                    <div className="border rounded-lg  px-3 py-2 text-sm h-10 w-full ease-in-out duration-500 transition-all">
+                                        {currentConnection ? peerID : "No connection"}
+                                    </div>
                                     <>
-                                        <div className="scale-0 hidden dark:flex dark:scale-100">
-                                            <TailSpin color="white" height={18} width={18}/>
-                                        </div>
-                                        <div className="scale-100 flex dark:scale-0 dark:hidden">
-                                            <TailSpin color="black" height={18} width={18}/>
-                                        </div>
-                                    </> : (
-                                        <p>Connect</p>
-                                    )}
-                                </Button>
-                            </div>
-                        </div>
-
-                        <div className="flex flex-col gap-y-3">
-                            <Label htmlFor="name">Connection Status</Label>
-                            <div className="flex flex-row justify-left items-center space-x-2">
-                                <div className="border rounded-lg  px-3 py-2 text-sm h-10 w-full ease-in-out duration-500 transition-all">
-                                    {currentConnection ? peerID : "No connection"}
+                                        {terminateCall ? 
+                                            <Button
+                                                variant="destructive"
+                                                type="button"
+                                                onClick={() => {
+                                                    peerRef.current.destroy()
+                                                }}
+                                            >
+                                                Terminate
+                                            </Button>
+                                        : null}
+                                    </>
                                 </div>
+                            </div>
+
+                            {/* upload file */}
+                            <div className="flex flex-col border rounded-lg  px-3 py-2 text-sm w-full ease-in-out duration-500 transition-all gap-y-2">
+                                <div>
+                                    <Label className="font-semibold text-[16px]">Upload</Label>
+                                </div>
+
+                                <div>
+                                    <FileUploadBtn 
+                                        inputRef={fileInputRef}
+                                        uploadBtn={handleFileuploadBtn}
+                                        handleFile={handleFileChange}
+                                    />
+                                </div>
+
+                                {fileUpload ? (
+                                    <FileUpload 
+                                        fileName={fileUpload[0]?.name}
+                                        fileProgress={fileUploadProgress}
+                                        handleClick={webRTCUpload}
+                                        showProgress={fileSending}
+                                    />
+                                ) : null}
+                            </div>
+
+                            {/* download file */}
+                            {downloadFile ? (
                                 <>
-                                    {terminateCall ? 
-                                        <Button
-                                            variant="destructive"
-                                            type="button"
-                                            onClick={() => {
-                                                peerRef.current.destroy()
-                                            }}
-                                        >
-                                            Terminate
-                                        </Button>
-                                    : null}
+                                    <FileDownload 
+                                        fileName={fileNameState}
+                                        fileProgress={fileDownloadProgress}
+                                        fileStatus={fileReceiving}
+                                        fileData={downloadFile}
+                                    />
                                 </>
-                            </div>
-                        </div>
-
-                        {/* upload file */}
-                        <div className="flex flex-col border rounded-lg  px-3 py-2 text-sm w-full ease-in-out duration-500 transition-all gap-y-2">
-                            <div>
-                                <Label className="font-semibold text-[16px]">Upload</Label>
-                            </div>
-
-                            <div>
-                                <FileUploadBtn 
-                                    inputRef={fileInputRef}
-                                    uploadBtn={handleFileuploadBtn}
-                                    handleFile={handleFileChange}
-                                />
-                            </div>
-
-                            {fileUpload ? (
-                                <FileUpload 
-                                    fileName={fileUpload[0]?.name}
-                                    fileProgress={fileUploadProgress}
-                                    handleClick={webRTCUpload}
-                                    showProgress={fileSending}
-                                />
                             ) : null}
-                        </div>
-
-                        {/* download file */}
-                        {downloadFile ? (
-                            <>
-                                <FileDownload 
-                                    fileName={fileNameState}
-                                    fileProgress={fileDownloadProgress}
-                                    fileStatus={fileReceiving}
-                                    fileData={downloadFile}
-                                />
-                            </>
-                        ) : null}
-                        </div>
-                    </form>
-                </CardContent>
-
-                    {acceptCaller ? (
-                        <CardFooter>
-                            <div>
-                            <Button
-                                variant="outline"
-                                className="bg-green-500 text-white hover:bg-green-400"
-                                onClick={acceptUser}
-                            >
-                                Click here to receive call from {signallingData.from}
-                            </Button>
                             </div>
-                        </CardFooter>
-                    ) : null}
-            </Card>
-        </>
+                        </form>
+                    </CardContent>
+
+                        {acceptCaller ? (
+                            <CardFooter>
+                                <div>
+                                <Button
+                                    variant="outline"
+                                    className="bg-green-500 text-white hover:bg-green-400"
+                                    onClick={acceptUser}
+                                >
+                                    Click here to receive call from {signallingData.from}
+                                </Button>
+                                </div>
+                            </CardFooter>
+                        ) : null}
+                </Card>
+            </>
+        </Suspense>
     );
 }
 
