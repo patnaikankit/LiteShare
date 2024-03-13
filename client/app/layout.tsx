@@ -9,6 +9,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 interface RootLayoutProps {
   metaData: Metadata;
+  children: React.ReactNode; // Ensure that the children prop is correctly defined here
 }
 
 const RootLayout: React.FC<RootLayoutProps> = ({ metaData, children }) => {
@@ -27,6 +28,6 @@ const RootLayout: React.FC<RootLayoutProps> = ({ metaData, children }) => {
       </body>
     </html>
   );
-};
+}
 
-export default RootLayout;
+export { RootLayout };
