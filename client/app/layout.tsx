@@ -19,9 +19,9 @@ export const metadata: Metadata = {
     },
   ],
   keywords: keywords,
-  icons: {
-    icon: "",
-  },
+  // icons: {
+  //   icon: "",
+  // },
 };
 
 export default function RootLayout({

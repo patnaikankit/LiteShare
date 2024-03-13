@@ -8,25 +8,29 @@ import { cn } from "@/lib/utils"
 const DropdownMenu = DropdownMenuPrimitive.Root, DropdownMenuTrigger = DropdownMenuPrimitive.Trigger, DropdownMenuGroup = DropdownMenuPrimitive.Group, DropdownMenuPortal = DropdownMenuPrimitive.Portal, DropdownMenuSub = DropdownMenuPrimitive.Sub, DropdownMenuRadioGroup = DropdownMenuPrimitive.RadioGroup
 
 
-const DropdownMenuSubTrigger = React.forwardRef<React.ElementRef<typeof DropdownMenuPrimitive.SubTrigger>, React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubTrigger> &{
-    insert?: boolean
-}
->(({ className, inset, children, ...props }, ref) => (
-    <DropdownMenuPrimitive.SubTrigger
-      ref={ref}
-      className={cn(
-        "flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent data-[state=open]:bg-accent",
-        inset && "pl-8",
-        className
-      )}
-      {...props}
-    >
-      {children}
-      <ChevronRight className="ml-auto h-4 w-4" />
-    </DropdownMenuPrimitive.SubTrigger>
-  ))
+const DropdownMenuSubTrigger: React.ForwardRefRenderFunction<
+  HTMLDivElement,
+  {
+    className?: string;
+    insert?: boolean;
+    children?: React.ReactNode;
+  }
+> = ({ className, insert, children, ...props }, ref) => (
+  <DropdownMenuPrimitive.SubTrigger
+    ref={ref as React.RefObject<HTMLDivElement>}
+    className={cn(
+      "flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent data-[state=open]:bg-accent",
+      insert && "pl-8",
+      className
+    )}
+    {...props}
+  >
+    {children}
+  </DropdownMenuPrimitive.SubTrigger>
+);
 
-DropdownMenuSubTrigger.displayName = DropdownMenuPrimitive.SubTrigger.displayName
+DropdownMenuSubTrigger.displayName = DropdownMenuPrimitive.SubTrigger.displayName;
+
 
 const DropdownMenuSubContent = React.forwardRef<
 React.ElementRef<typeof DropdownMenuPrimitive.SubContent>,
