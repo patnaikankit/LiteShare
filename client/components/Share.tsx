@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import { Chat } from "./Chat"
+import Chat from "./Chat"
 import ShareCard from "./ShareCard"
 
 

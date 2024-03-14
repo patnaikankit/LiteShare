@@ -140,7 +140,7 @@ const ShareCard = () => {
             new URL("../lib/worker.ts", import.meta.url)
         )
 
-        // addUserToSocketDB();
+        addUserToSocketDB();
 
         // from the unqiue generated url extracting the the peerID 
         if(searchParams.get("code")) {
@@ -238,6 +238,7 @@ const ShareCard = () => {
 
         // Receiving accept signal from socket
         userDetails.socket.on("callAccepted", (data: any) => {
+            peer.signal(data.signalData)
             setCurrentConnection(true)
             setIsLoading(false)
             setTerminateCall(true)

@@ -5,7 +5,7 @@ import { Button } from "./UI/Button"
 import { SendHorizonal } from "lucide-react"
 import { useSocket } from "@/helper/SocketProvider"
 
-export const Chat = () => {
+const Chat = () => {
     // States
 
     // to store the messages until the connection lasts
@@ -30,7 +30,7 @@ export const Chat = () => {
             const peer = Socket.peerState;
             if(peer){
                 const msgData = {
-                    type: "message",
+                    type: "messages",
                     text: newMessage,
                     sender: "other"
                 }
@@ -38,6 +38,22 @@ export const Chat = () => {
             }
         }
     }
+
+
+    useEffect(() => {
+        const peer = Socket.peerState;
+    
+        if(peer){
+          peer.on("data", (data: any) => {
+            // Parse and display the incoming message
+            const receivedMessage = JSON.parse(data);
+            if (receivedMessage.text) {
+                setMessage((prevMessages) => [...prevMessages, receivedMessage]);
+            }
+          });
+        }
+      }, [Socket.peerState]);
+
 
     // eventlistener for incoming message
     React.useEffect(() => {
@@ -94,14 +110,14 @@ export const Chat = () => {
                                 />
                             </div>
                             <div>
-                                <Button
-                                    variant={"outline"}
-                                    className="p-3"
-                                    onClick={handleMessage}
-                                    ref={buttonRef}
-                                >
-                                    <SendHorizonal size={14} />
-                                </Button>
+                            <Button
+                                variant={"outline"}
+                                className="p-3"
+                                onClick={handleMessage}
+                                ref={buttonRef}
+                            >
+                                <SendHorizonal size={14} />
+                            </Button>
                             </div>
                         </div>
                     </div>
@@ -110,3 +126,5 @@ export const Chat = () => {
         </>
     )
 }
+
+export default Chat;
