@@ -28,15 +28,23 @@ const Chat = () => {
 
             // to send the message to the peer
             const peer = Socket.peerState;
-            if(peer){
+            if (peer) {
                 const msgData = {
                     type: "messages",
                     text: newMessage,
                     sender: "other"
+                };
+            
+                try {
+                    peer.send(JSON.stringify(msgData));
+                } catch (error) {
+                    console.log("Error message:", error);
                 }
-                peer.send(JSON.stringify(msgData))
-            }
+            } else {
+                console.log("Peer is null");
+            }            
         }
+        console.log(Socket.peerState);
     }
 
 
@@ -106,18 +114,18 @@ const Chat = () => {
                                         setNewMessage(event.target.value)
                                     }}
                                     ref={inputRef}
-                                    placeholder={`Sender Message to ${Socket.userID}`}
+                                    placeholder={`Send Message to ${Socket.userID}`}
                                 />
                             </div>
                             <div>
-                            <Button
-                                variant={"outline"}
-                                className="p-3"
-                                onClick={handleMessage}
-                                ref={buttonRef}
-                            >
-                                <SendHorizonal size={14} />
-                            </Button>
+                                <Button
+                                    variant={"outline"}
+                                    className="p-3"
+                                    onClick={handleMessage}
+                                    ref={buttonRef}
+                                >
+                                    <SendHorizonal size={14} />
+                                </Button>
                             </div>
                         </div>
                     </div>
