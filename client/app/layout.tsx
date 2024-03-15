@@ -4,7 +4,6 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import Navbar from '@/components/Navbar';
-import { keywords } from '@/lib/key';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -18,7 +17,6 @@ export const metadata: Metadata = {
       url: "https://github.com/patnaikankit",
     },
   ],
-  keywords: keywords,
   // icons: {
   //   icon: "",
   // },

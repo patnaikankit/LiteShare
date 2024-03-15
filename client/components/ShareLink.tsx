@@ -51,7 +51,7 @@ const ShareLink = ({ usercode }: {usercode: string}) => {
                         <div className="flex flex-col w-full gap-y-2 justify-center items-center">
                             <div className="flex justify-center border rounded-md w-fit p-2">
                                 <QRCodeSVG
-                                    value={`https://fast-drop.vercel.app/transfer?code=${usercode}`}
+                                    value={`https://lite-share.vercel.app//transfer?code=${usercode}`}
                                     size={128}
                                     bgColor={theme === "dark" ? "#000000" : "#ffffff"}
                                     fgColor={theme === "dark" ? "#ffffff" : "#000000"}
@@ -63,7 +63,7 @@ const ShareLink = ({ usercode }: {usercode: string}) => {
                             <div className="flex w-full justify-center gap-x-1">
                                 <Input 
                                     id="link"
-                                    defaultValue={`https://fast-drop.vercel.app/transfer?code=${usercode}`}
+                                    defaultValue={`https://lite-share.vercel.app//transfer?code=${usercode}`}
                                     readOnly
                                     className="selection:bg-zinc-900 dark:selection:bg-white"
                                 />

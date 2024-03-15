@@ -237,10 +237,10 @@ const ShareCard = () => {
         })
 
         // Receiving accept signal from socket
-        userDetails.socket.on("callAccepted", (data: any) => {
+        userDetails.socket.on("offerAccepted", (data: any) => {
             peer.signal(data.signalData)
-            setCurrentConnection(true)
             setIsLoading(false)
+            setCurrentConnection(true)
             setTerminateCall(true)
             toast.success(`Successful connection with ${peerID}`);
             userDetails.setPeerState(peer)
@@ -272,6 +272,8 @@ const ShareCard = () => {
 
         peerRef.current = peer
         userDetails.setPeerState(peer)
+
+        // sending the signal to the caller
         peer.on("signal", (data) => {
             userDetails.socket.emit("accept-signal", {
                 signalData: data,
@@ -371,7 +373,7 @@ const ShareCard = () => {
                         )
                         setFileUploadProgress(100)
                         setFileSending(false)
-                        toast.success("File delivered succesfullly")
+                        toast.success("File delivered succesfully!")
                     }
                 }
             }

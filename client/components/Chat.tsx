@@ -19,7 +19,7 @@ const Chat = () => {
 
     // Functions
 
-    // fucntion is triggered when a new message is ent
+    // fucntion is triggered when a new message is sent
     const handleMessage = () => {
         if(newMessage.trim() !== ""){
             const newMessages = [...message, { text: newMessage, sender: "me" }];
@@ -100,7 +100,9 @@ const Chat = () => {
                                           ? "bg-blue-500 text-white"
                                           : "bg-zinc-700  text-white"
                                       }`}
-                                ></div>
+                                >
+                                    {msg.text}
+                                </div>
                                 </div>
                             ))}
                         </div>

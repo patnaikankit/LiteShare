@@ -36,7 +36,7 @@ const FileDownload = ({
                 <div className="flex flex-col border rounded-lg  px-3 py-3 text-sm w-full gap-y-2">
                     <div className="flex justify-between items-center">
                         <div className="flex">
-                            {fileProgress ? "Receiving..." : fileName}
+                            {fileStatus ? "Receiving..." : fileName}
                         </div>
 
                         <div className="flex">
@@ -51,18 +51,18 @@ const FileDownload = ({
                         </div>
                     </div>
 
-                {fileStatus ? (
-                    <div>
-                        <Progress 
-                            value={fileProgress}
-                            className="h-1"
-                        />
-                    </div>
-                ) : null}
+                    {fileStatus ? (
+                        <div>
+                            <Progress 
+                                value={fileProgress}
+                                className="h-1"
+                            />
+                        </div>
+                    ) : null}
                 </div>
             </div>
         </>
     )
 }
 
-export default FileDownload
+export default FileDownload;
