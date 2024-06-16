@@ -18,7 +18,7 @@ const ShareLink = ({ usercode }: {usercode: string}) => {
     const { theme } = useTheme();
     const handleCopyLink = () => {
         navigator.clipboard.writeText(
-            `https://fast-drop.vercel.app/transfer?code=${usercode}`
+            `https://lite-share.vercel.app/transfer?code=${usercode}`
         );
         toast.success("Link Copied")
     };

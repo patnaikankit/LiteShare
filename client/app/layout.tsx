@@ -17,9 +17,6 @@ export const metadata: Metadata = {
       url: "https://github.com/patnaikankit",
     },
   ],
-  // icons: {
-  //   icon: "",
-  // },
 };
 
 export default function RootLayout({
