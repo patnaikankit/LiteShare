@@ -9,8 +9,8 @@ const app = express();
 
 app.use(
     cors({
-        origin: "*",
-        // credentials: true
+        origin: ["https://lite-share.vercel.app/", " http://localhost:3000", "http://localhost:3001"],
+        credentials: true
     })
 );
 
