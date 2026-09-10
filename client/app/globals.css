@@ -57,5 +57,6 @@
   }
   body {
     @apply bg-background text-foreground;
+    background: #07111f;
   }
 }
